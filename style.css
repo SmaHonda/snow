@@ -1,4 +1,105 @@
-   /* 基礎按鈕樣式 */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* 防止橫向捲軸 */
+}
+/* 首頁 */
+/* 首頁影片區塊 */
+#hero-video-section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0; /* 預設隱藏 */
+    transition: opacity 1.5s ease-in-out; /* 1.5秒的平滑淡入淡出 */
+}
+
+.video-background.active {
+    opacity: 1; /* 只有加上 active 的會顯示 */
+    z-index: 2;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4); /* 增加遮罩讓文字更清晰 */
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.hero-subtitle {
+    font-size: 1.8rem;
+    font-weight: 300;
+}
+
+/* 滾動按鈕 */
+#scroll-down-btn {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid white;
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#scroll-down-btn:hover {
+    background: rgba(255,255,255,0.4);
+}
+
+/* 下方內容區 */
+.content-section {
+    min-height: 100vh;
+    background-color: #f8fafc; /* 讓內容區顏色與影片區有區隔 */
+    padding-top: 50px; /* 避免內容被導覽列遮擋 */
+    position: relative;
+    z-index: 4; /* 確保內容區在影片上方 */
+}
+
+
+
+
+/* CP值頁面 */
+/* 基礎按鈕樣式 */
         .btn-toggle {
             width: 100%;
             padding: 0.75rem;
@@ -38,33 +139,250 @@
             align-items: start;
         }
         
-        /* 單字資料 */
-        .word-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 20px;
+        
+/* 單字容器：改用 Grid 佈局會比 Flex 更整齊 */
+#word-container {
+    display: grid;
+    /* 自動填滿寬度，每個卡片最小 200px，最大平均分配 */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    padding: 30px;
+    max-width: 1200px; /* 限制最大寬度，避免在大螢幕拉得太開 */
+    margin: 0 auto;    /* 居中顯示 */
 }
 
+/* 單字卡片優化 */
 .word-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    padding: 20px;
-    width: 200px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); /* 更柔和的陰影 */
+    padding: 24px;
     text-align: center;
-    transition: transform 0.3s;
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* 讓所有卡片高度統一 */
 }
 
 .word-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    border-color: #3498db;
 }
 
+/* 標籤樣式優化 */
 .tag {
-    font-size: 0.7em;
-    background: #e1f5fe;
-    color: #01579b;
-    padding: 2px 8px;
-    border-radius: 10px;
+    align-self: center; /* 標籤居中 */
+    font-size: 0.75em;
+    font-weight: bold;
+    background: #ebf5ff;
+    color: #2980b9;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+/* 日文字體加大 */
+.word-card h3 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: #2c3e50;
+    font-family: "Noto Sans JP", sans-serif; /* 建議在 HTML 加入日文字體 */
+}
+
+/* 羅馬拼音 */
+.romaji {
+    font-size: 0.85rem;
+    color: #95a5a6;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+/* 中文解釋 */
+.chinese {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #34495e;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 10px;
+}
+
+/* --- 單字頁專用樣式 --- */
+.word-container {
+    display: grid;
+    /* 這裡稍微縮小最小值，並限制最大寬度，防止卡片變得太大 */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 280px)); 
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 40px auto; /* 增加上下間距，水平置中 */
+    justify-content: center; /* 讓卡片在不滿一排時也能置中 */
+}
+
+.word-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e0e6ed;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 內容置中 */
+    transition: all 0.2s ease-in-out;
+}
+
+/* 確保圖片或內容不會撐破卡片 */
+.word-card h3, .word-card p {
+    margin: 5px 0;
+    word-break: break-word;
+}
+
+
+/* --- 搜尋區域美化 --- */
+.search-section {
+    text-align: center;
+    margin: 30px 0;
+}
+
+#searchInput {
+    padding: 12px 20px;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 25px;
+    border: 2px solid #e2e8f0;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#searchInput:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+}
+
+
+/* 單字頁的分類按鈕 */
+.btn-category {
+    background-color: #f1f5f9;
+    color: #475569;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-category:hover {
+    background-color: #e2e8f0;
+}
+
+/* 點選後的樣式 (選配：可透過 JS 切換 class) */
+.btn-category.active {
+    background-color: #3498db;
+    color: white;
+    border-color: #2980b9;
+}
+
+
+/* Ｑuiz */
+/* 浮動按鈕按鈕本體 */
+#quiz-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #3498db;
+}
+
+#quiz-fab:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+#quiz-hero-icon {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+}
+
+/* 提示文字 */
+.quiz-tooltip {
+    position: absolute;
+    left: -100px;
+    background: #34495e;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+#quiz-fab:hover .quiz-tooltip {
+    opacity: 1;
+}
+
+/* 彈出視窗樣式 */
+#quiz-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+#quiz-modal.hidden { display: none; }
+
+.quiz-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* 計分條 */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+.animate-bounce {
+    animation: bounce 0.5s ease infinite;
+}
+
+.quiz-option-btn:disabled {
+    cursor: default;
+    opacity: 0.8;
 }
